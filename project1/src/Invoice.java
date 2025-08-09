@@ -1,5 +1,6 @@
 /* 
- * Composition Concept
+ * 6. Invoice Class
+ * This class represents an invoice, linking a customer to a total amount.
  * Relationship 'has a' (must have Customer class)
  */
 public class Invoice {
@@ -56,17 +57,23 @@ public class Invoice {
         return customer.getName();
     }
 
-    public int getCustomerDiscount() {
-        return customer.getDiscount();
-    }
+    // public int getCustomerDiscount() {
+    // return customer.getDiscount();
+    // }
 
+    // Core bussiness logic: apply the customer's discount policy.
     public double getAmountAfterDiscount() {
-        return this.amount * (1 - getCustomerDiscount() / 100.0);
+        return customer.getDiscountPolicy().applyDiscount(amount);
     }
 
     @Override
     public String toString() {
-        return String.format("Invoice[id=%d, customer=%s, amount=%.2f]", id, customer, amount);
+        return "Invoice{id= " + id +
+                ", customerId= " + getCustomerId() +
+                ", customerName= " + getCustomerName() +
+                ", originalAmount= " + String.format("%.2f", amount) +
+                ", discountAmount= " + String.format("%.2f", getAmountAfterDiscount()) +
+                "}";
     }
 
 }
